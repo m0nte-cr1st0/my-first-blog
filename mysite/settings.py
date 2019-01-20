@@ -47,8 +47,6 @@ INSTALLED_APPS = [
     'post.apps.PostConfig',
     'stdimage',
     'bootstrap3',
-    'django_comments',
-    'django_comments_xtd',
     'widget_tweaks',
     'django_nose',
     'ckeditor',
