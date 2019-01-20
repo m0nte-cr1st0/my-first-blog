@@ -1,0 +1,58 @@
+{% extends "base_generic.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+
+{% block title %}<title>Blogger: {{ profile.user }}</title>{% endblock %}
+
+{% block content %}
+<div class="profile-detail">
+  <h1>{{ profile.user }}</h1>
+  {% if not profile.avatar %}
+    <img src="{% static 'css/def-avatar.png' %}" width=150px;>
+  {% else %}
+    <img src="{{STATIC_URL}}{{ profile.avatar.url }}" width=150px;>
+  {% endif %}
+  <div class="data">
+    Имя, фамилия: {{ profile.first_name }} {{ profile.last_name }}</br>
+    Город: {{ profile.city }}</br>
+    Пол: {{ profile.sex }}</br>
+    email: {{ profile.email }}
+  </div>
+  <div class="other">
+    {% if profile.biography %}
+      <h3 class="bio">Биография</h3>
+      <p>{{ profile.biography|safe }}</p>
+    {% endif %}
+    {% if profile.contacts %}
+      <h3 class="cont">Контакты</h3>
+      <p>{{ profile.contacts|safe }}</p>
+    {% endif %}
+    {% if profile.other_info %}
+    <div class="oth">
+      <h3>Другая информация</h3>
+      <p>{{ profile.other_info|safe }}</p>
+    </div>
+    {% endif %}
+  </div>
+
+
+  <hr width=90%>
+  <div class="profile-post">
+    <h4>Cписок публикаций</h4>
+    {% for post in profile.user.post_set.all %}
+      <ul>
+        {% if post.moderation %}
+  	     <li><span class="profile-post-title"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></span> ({{post.post_date}})</li>
+        {% endif %}
+  	  </ul>
+    {% endfor %}
+  </div>
+
+  {% if user.is_staff or user == profile.user %}
+  <div class='new_post'>
+    <p class="edit-profile"><a href="{% url 'profile_update' profile.id %}">Редактировать</a></p>
+    <p class="edit-photo"><a href="{% url 'profile_update_photo' profile.id %}">Сменить фото</a></p>
+  </div>
+  {% endif %}
+</div>
+{% endblock %}

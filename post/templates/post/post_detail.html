@@ -1,0 +1,55 @@
+{% extends "base_generic.html" %}
+
+{% block title %}<title>Post: {{ post.title }}</title>{% endblock %}
+
+{% block content %}
+  {% load comments %}
+  <h1>{{ post.title }}</h1>
+  <hr>
+  <div class="profile"><p><strong>Автор:</strong> <a href="{% url 'profile-detail' post.user.profile.pk %}">{{ post.user }}</a></div></p>
+  <p class="pub_date">Опубликовано: {{ post.post_date }}</p>
+  <div class="text">{{ post.body|safe }}</div>
+  <hr>
+  <div style="margin-left:20px;margin-top:20px">
+    <h4>Комментарии</h4>
+    {% if user.is_authenticated %}
+      <form action="" method="post">
+        {% csrf_token %}
+        <table>{{ commentform.as_p }}</table>
+        <button type="submit">Добавить</button>
+      </form>
+      <hr>
+    {% else %}
+      <p><a href="{% url 'login' %}?next={{ request.path }}">Login</a> to add a new comment.</p>
+    {% endif %}
+
+    <div class="comments">
+    {% for comment in post.comment_set.all %}
+      {% if not comment.moderate %}
+      <img src="{{STATIC_URL}}{{ comment.author.profile.avatar.url }}" width=60px;>
+      <div class="comm-body">
+        <a href="{% url 'profile-detail' comment.author.profile.pk %}">{{ comment.author }}</a> ({{ comment.comment_date }})
+      <span class="comm-icon">
+        {% if user == comment.author or user.is_staff %}
+        <a href="{% url 'comment_update' comment.id %}"><i class="far fa-edit"></i></a>
+        {% endif %}
+      {% if user.is_staff %}
+        <a href="{% url 'comment_delete' comment.id %}"><i class="fas fa-trash"></i></a>
+      {% endif %}</span></br>
+        {{ comment.description|safe }}
+      </div>
+      {% endif %}
+      <hr width=300px>
+    {% endfor %}
+</div>
+    <div class="post-upd">{% if user.is_staff or user == post.user %}
+      <a href="{% url 'post_update' post.pk %}" class='new_post edit'><i class="far fa-edit fa-2x"></i></a>
+    {% endif %}
+
+    {% if user.is_staff %}
+      <a href="{% url 'post_delete' post.id %}" class='new_post'><i class="fas fa-trash fa-2x"></i></a>
+    {% endif %}
+  </div>
+  </div>
+  
+{% endblock %}

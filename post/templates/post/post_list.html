@@ -1,0 +1,26 @@
+{% extends "base_generic.html" %}
+{% block title %}<title>Список постов</title>{% endblock %}
+{% block content %}
+  <h1>Все записи</h1>
+  <div class="post-list">
+    {% if post_list %}
+        {% for post in post_list %}
+            {% if post.logo %}
+              <a href="{{ post.get_absolute_url }}"><img src="{{STATIC_ROOT}}{{ post.logo.thumbnail.url }}"></a></br>
+            {% endif %}
+        {% endfor %}
+
+    {% else %}
+        <p>There are no posts.</p>
+    {% endif %}
+
+      {% if user.is_authenticated %}
+        <div class="new_post post-create"><a href="{% url 'post_create' %}">Создать</a></div>
+      {% endif %}
+
+      {% if user.is_staff %}
+        <div class="new_post proposed"><a href="{% url 'proposed_posts' %}">Предложенные</a></div>
+      {% endif %}
+
+  </div>
+{% endblock %}

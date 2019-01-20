@@ -1,0 +1,25 @@
+{% extends "base_generic.html" %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+
+  {% block title %}<title>Портфолио|Пользователи|m0nte-cr1st0</title>{% endblock %}
+
+  {% block content %}
+    <h1>Пользователи</h1>
+    <div class="profile">
+      {% if profile_list %}
+        {% for profile in profile_list %}
+          <a href="{{ profile.get_absolute_url }}">
+          {% if not profile.avatar %}
+            <img src="{% static 'css/def-avatar.png' %}" width=50px;>
+          {% else %}
+            <img src="{{STATIC_URL}}{{ profile.avatar.url }}" width=50px;>
+          {% endif %}
+          <span class="name">{{ profile.user }}</span></a></br>
+          <hr width=90%>
+        {% endfor %}
+      {% else %}
+        <p>Пользователей нет</p>
+      {% endif %}
+    </div>
+  {% endblock %}

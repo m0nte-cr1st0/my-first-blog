@@ -1,0 +1,4 @@
+Онлайн: {{ users_count }}</br>
+{% for user in users %}
+  <a href="{% url 'profile-detail' user.user.profile.pk %}"><span>{{user.user}}</span></a></br>
+{% endfor %}

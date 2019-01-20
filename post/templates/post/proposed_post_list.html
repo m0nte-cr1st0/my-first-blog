@@ -1,0 +1,22 @@
+{% extends "base_generic.html" %}
+{% block title %}<title>Список постов</title>{% endblock %}
+{% block content %}
+  <h1>Предложенные записи</h1>
+  {% if post_list %}
+      <ul>
+      {% for post in post_list %}
+          <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a> <a href="{% url 'profile-detail' post.user.profile.pk %}">{{ post.user }}</a></li>
+      {% endfor %}
+      </ul>
+  {% else %}
+      <p>Нет предложенных записей</p>
+
+  {% endif %}
+  <a href="{% url 'posts' %}">Опубликованные</a>
+{{ num_proposed_posts }}
+{% endblock %}
+
+
+        <!-- {% if post.logo %}
+        <img src="{{ post.logo.url }}" height=100px>
+        {% endif %} -->

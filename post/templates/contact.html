@@ -1,0 +1,53 @@
+{% extends 'base_generic.html' %}
+
+{% load widget_tweaks %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+
+{% block content %}
+  <div>
+    <div>
+      <div>
+        <h1>Мои контакты</h1>
+        <div>
+          <img src="{% static 'css/phone.png' %}" height=20px> +38(066)-108-86-11</br>
+          <img src="{% static 'css/skype.svg' %}" height=20px><a href="skype:aleks24105?chat"> dinamo.mutu</a></br>
+          <img src="{% static 'css/gmail.png' %}" height=20px><a href="mailto:dinamo.mutu111@gmail.com"> dima.dmitruk96@gmail.com</a></br>
+          <img src="{% static 'css/linkedin.png' %}" height=20px><a href="https://www.linkedin.com/in/dmitry-dmytruk-8009a3176/"> https://www.linkedin.com/in/dmitry-dmytruk-8009a3176/</a>
+        </div>
+      </div>
+  </div>
+  <br>
+  <form class="form-horizontal" role="form" action="." method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      {% if field.errors %}
+        <div>
+          <label for="id_{{ field.name }}">{{ field.label }}</label>
+          <div>
+            {{ field|attr:"class:form-control" }}
+
+              {% for error in  field.errors %}{{ error }}{% endfor %}
+
+          </div>
+        </div>
+        {% else %}
+        <div>
+          <label for="id_{{ field.name }}">{{ field.label }}</label>
+          <div>
+            {{ field|attr:"class:form-control" }}
+            {% if field.help_text %}
+              <p><small>{{ field.help_text }}</small></p>
+            {% endif %}
+          </div>
+        </div>
+        {% endif %}
+      {% endfor %}
+      <div>
+        <div>
+          <button type="submit">Отправить</button>
+        </div>
+      </div>
+    </form>
+  </div>
+{% endblock %}

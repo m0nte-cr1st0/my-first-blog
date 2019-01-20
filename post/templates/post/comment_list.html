@@ -1,0 +1,12 @@
+{% if comment %}
+<h3>Комментарии</h3>
+<hr>
+{% for comment in comments %}
+  <div class="tail">
+    <span class="link"><a href="{% url 'post-detail' comment.post.pk %}">{{ comment.post.title|truncatewords:3 }}</a></span></br>
+    <div class="desc">{{ comment.description|safe|truncatewords:10 }}...</div>
+    <span class="link"><a href="{% url 'profile-detail' comment.author.profile.pk %}">{{ comment.author }}</a> ({{ comment.comment_date }})</span>
+  </div>
+  <hr>
+{% endfor %}
+{% endif %}

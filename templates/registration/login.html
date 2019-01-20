@@ -1,0 +1,56 @@
+{% extends "base_generic.html" %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
+<link href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" rel="stylesheet">
+{% load socialaccount %}
+<div class="social">
+  <div>
+    <a href="{% provider_login_url 'google' %}?next={{request.path}}"><img src="{% static 'css/google-logo.png' %}" height=50px></a>&nbsp;
+    <a href="{% provider_login_url 'github' %}?next={{request.path}}"><img src="{% static 'css/github-logo.svg' %}" height=50px></a>
+  </div>
+  <div>
+    <a href="{% provider_login_url 'discord'%}?next={{request.path}}"><img src="{% static 'css/discord-logo.svg' %}" height=50px></a>&nbsp;
+    <a href="{% provider_login_url 'bitbucket' %}?next={{request.path}}"><img src="{% static 'css/bitbucket-logo.png' %}" height=50px></a>
+  </div>
+  <div>
+    <a href="{% provider_login_url 'instagram' %}?next={{request.path}}"><img src="{% static 'css/Instagram_logo.png' %}" height=50px></a>&nbsp;
+    <a href="{% provider_login_url 'gitlab' %}?next={{request.path}}"><img src="{% static 'css/gitlab_logo.svg' %}" height=50px></a>
+  </div>
+</div>
+<h1>Вход</h1>
+{% if form.errors %}
+<p>Ваш логин и пароль не совпадают. Пожалуйста, попробуйте еще раз.</p>
+{% endif %}
+
+{% if next %}
+    {% if user.is_authenticated %}
+    <p>У Вас нет доступа к этой странице. Чтобы продолжить, пожалуйста, войдите в систему под учетной записью, у которой есть доступ.</p>
+    {% else %}
+    <p>Пожалуйста, войдите.</p>
+    {% endif %}
+{% endif %}
+
+<form method="post" action="{% url 'login' %}">
+{% csrf_token %}
+
+<div>
+  <td>{{ form.username.label_tag }}</td>
+  <td>{{ form.username }}</td>
+</div>
+<div>
+  <td>{{ form.password.label_tag }}</td>
+  <td>{{ form.password }}</td>
+</div>
+
+<div>
+  <input type="submit" value="Войти" />
+  <input type="hidden" name="next" value="{{ next }}" />
+</div>
+</form>
+
+{# Assumes you setup the password_reset view in your URLconf #}
+<p><a href="{% url 'password_reset' %}">Забыли пароль?</a></p>
+
+{% endblock %}
