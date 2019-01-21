@@ -231,20 +231,13 @@ class PostDetailView(generic.DetailView):
            obj.save()
            return redirect('post-detail', post.pk)
 
-# def moderator_approval_view(request, **kwargs):
-#     if request.method == 'POST':
-#         post = Post.objects.get(pk=kwargs['post_id'])
-#         post.moderation = True
-#         post.save()
-#         return HttpResponseRedirect('posts')
-
 
 class SearchView(View):
 	template_name = 'search.html'
 
 	def get(self, request, *args, **kwargs):
 		query = self.request.GET.get('q')
-		founded = Post.objects.filter(Q(title__icontains=query)|Q(description__icontains=query))
+		founded = Post.objects.filter(Q(title__icontains=query)|Q(body__icontains=query))
 		context = {'founded': founded}
 		return render(self.request, self.template_name, context)
 

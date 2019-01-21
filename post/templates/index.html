@@ -57,7 +57,7 @@
 <div class="spoiler-block">
 		<a href="#" class="spoiler-title">Опыт</a>
 		<div class="spoiler-content">
-      На данный момент серьёзного опыта работы нет (учитывая, что я Python/Django изучаю с августа месяца 2018 года). С моими работами вы может ознакомиться на вкладке "Работы", или же нажав <a href="http://127.0.0.1:8000/post/posts/" target="_tab">сюда</a>.</br>
+      На данный момент серьёзного опыта работы нет (учитывая, что я Python/Django изучаю с августа месяца 2018 года). С моими работами вы может ознакомиться на вкладке "Работы", или же нажав <a href="{% url 'posts' %}" target="_tab">сюда</a>.</br>
       Также список некоторых интересных задач доступен в данном <a href="https://github.com/m0nte-cr1st0/interesting_exercise" target="_tab">репозиторие</a>, <a href="https://github.com/m0nte-cr1st0/spam_filter/blob/master/Spam_Filter_Dmytruk_25_11.py" target="_tab">спам-фильтр</a>
 		</div>
 	</div>
@@ -73,19 +73,16 @@
 <div class="spoiler-block">
 		<a href="#" class="spoiler-title">Контакты</a>
 		<div class="spoiler-content">
-        Связаться со мной можете по следующим <a href="http://127.0.0.1:8000/post/contact/" target="_tab">контактам</a>:</br>
+        Связаться со мной можете по следующим <a href="{% url 'contact' %}" target="_tab">контактам</a>:</br>
         <img src="{% static 'css/phone.png' %}" height=20px> +38(066)-108-86-11</br>
         <img src="{% static 'css/skype.svg' %}" height=20px><a href="skype:dinamo.mutu?chat"> dinamo.mutu</a></br>
-        <img src="{% static 'css/gmail.png' %}" height=20px><a href="mailto:dinamo.mutu111@gmail.com" target="_tab"> dima.dmitruk96@gmail.com</a></br>
+        <img src="{% static 'css/gmail.png' %}" height=20px><a href="mailto:dinamo.mutu111@gmail.com" target="_tab"> dinamo.mutu111@gmail.com</a></br>
         <img src="{% static 'css/linkedin.png' %}" height=20px><a href="https://www.linkedin.com/in/dmitry-dmytruk-8009a3176/" target="_tab"> https://www.linkedin.com/in/dmitry-dmytruk-8009a3176/</a>
 		</div>
 	</div>
 
 
-
-  <!-- <p>This site writed by Python 3.7, Django 2.1, sqlite3, with JavaScript, HTML and CSS.</p> -->
 <hr>
   <p>Количество работ: {{ num_posts }}</p>
   <p>Вы посетили эту страницу {{ num_visits }}{% if num_visits == 1 %} раз{% else %} раз{% endif %}.</p>
-<!-- {{ip}} -->
 {% endblock %}

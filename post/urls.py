@@ -1,7 +1,7 @@
 from django.conf.urls import url
 #from .views import emailView, successView
 from . import views
-
+from .templatetags.abc import *
 
 urlpatterns = [
 	url(r'^$', views.index, name='index'),
@@ -17,7 +17,7 @@ urlpatterns = [
 	url(r'^post/(?P<pk>\d+)/comment_delete/$', views.CommentDelete.as_view(), name='comment_delete'),
 	url(r'^profile/(?P<pk>\d+)/update/$', views.ProfileUpdateView.as_view(), name='profile_update'),
 	url(r'^profile/(?P<pk>\d+)/updatephoto/$', views.ProfileUpdatePhotoView.as_view(), name='profile_update_photo'),
-	url(r'^search$', views.SearchView.as_view(), name='search_view'),
+	url(r'^search/$', views.SearchView.as_view(), name='search_view'),
 	url(r'^contact/$', views.contact, name='contact'),
 	url(r'^thanks/$', views.thanks, name='thanks'),
 	# url(r'^moderator-approval/(?P<pk>\d+)$', views.moderator_approval_view, name="moderator-approval"),

@@ -4,6 +4,7 @@
 
 {% block content %}
   {% load comments %}
+  {% load static %}
   <h1>{{ post.title }}</h1>
   <hr>
   <div class="profile"><p><strong>Автор:</strong> <a href="{% url 'profile-detail' post.user.profile.pk %}">{{ post.user }}</a></div></p>
@@ -26,7 +27,11 @@
     <div class="comments">
     {% for comment in post.comment_set.all %}
       {% if not comment.moderate %}
-      <img src="{{STATIC_URL}}{{ comment.author.profile.avatar.url }}" width=60px;>
+      {% if not profile.avatar %}
+        <img src="{% static 'css/def-avatar.png' %}" width=60px;>
+      {% else %}
+        <img src="{{STATIC_URL}}{{ profile.avatar.url }}" width=60px;>
+      {% endif %}
       <div class="comm-body">
         <a href="{% url 'profile-detail' comment.author.profile.pk %}">{{ comment.author }}</a> ({{ comment.comment_date }})
       <span class="comm-icon">
@@ -51,5 +56,5 @@
     {% endif %}
   </div>
   </div>
-  
+
 {% endblock %}

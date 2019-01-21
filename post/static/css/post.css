@@ -431,6 +431,8 @@ box-shadow:
 .other{
 	position: relative;
 	left: 250px;
+	padding-right: 300px;
+
 }
 
 .profile-detail hr{
@@ -536,3 +538,7 @@ line-height: 1.6;
 	 word-spacing: 2.6pt;
 	 line-height: 1.6;
  }
+
+.fa, .far, .fas, .fab{
+	font-style: normal;
+}

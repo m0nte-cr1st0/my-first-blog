@@ -69,9 +69,9 @@
           </symbol>
         </svg>
 
-        <form novalidate="novalidate" onsubmit="return false;" class="searchbox sbx-google" action="{% url 'search_view' %}" method='GET'>
+        <form novalidate="novalidate" class="searchbox sbx-google" action="{% url 'search_view' %}" method='GET'>
           <div role="search" class="sbx-google__wrapper">
-            <input type="search" name="q" placeholder="Поиск по сайту" autocomplete="off" required="required" class="sbx-google__input">
+            <input type="text" name="q" placeholder="Поиск по сайту" autocomplete="off" required="required" class="sbx-google__input">
             <button type="submit" title="Нажми, чтобы найти" class="sbx-google__submit">
               <svg role="img" aria-label="Search">
                 <use xlink:href="#sbx-icon-search-13"></use>
@@ -91,7 +91,7 @@
       {% if user.is_authenticated %}
         <div class="mini-profile">
           {% if user.is_authenticated %}
-            <a href="{{ profile.get_absolute_url }}">{{ user.profile.user }}</a></br>
+            <a href="{{ request.user.profile.get_absolute_url }}">{{ user.profile.user }}</a></br>
             {% if not user.profile.avatar %}
               <img src="{% static 'css/def-avatar.png' %}" width=100px;>
             {% else %}
