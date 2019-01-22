@@ -164,15 +164,15 @@ AUTHENTICATION_BACKENDS = [
 
 SITE_ID = 2
 
-ACCOUNT_EMAIL_VERIFICATION = 'none'
+# ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'dinamo.mutu111@gmail.com'
-EMAIL_HOST_PASSWORD = '96jun_kasai'
+EMAIL_HOST_PASSWORD = '****'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Зависимость визуального редактора
 CKEDITOR_JQUERY_URL = 'https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js'
